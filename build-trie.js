@@ -1,4 +1,4 @@
-var txt = require("fs").readFileSync("dict/string.txt", "utf8"),
+var txt = require("fs").readFileSync("dict/twl06.txt", "utf8"),
 	words = txt.replace(/\n/g, "").split(" "),
 	trie = {},
 	end = {},

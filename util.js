@@ -51,6 +51,151 @@ exports.findTrieWord = function findTrieWord( word, cur ) {
 	return false;
 };
 
+function findUniqueLetters(word){
+	
+	var uniqueLetters = [],
+		letters = word.split(''),
+		i = 0,
+		l = letters.length;
+			
+	for (; i < l; i++)
+	{
+		if (uniqueLetters.indexOf(letters[i]) === -1)
+			uniqueLetters.push( letters[i] );
+	}
+	
+	return uniqueLetters.sort();
+}
+
+function findLetterFreqs(word){
+
+	var letters = word.split(''),
+		i = 0,
+		l = letters.length,
+		letterFreq = {};
+
+	for (; i < l; i++)
+	{
+		if (letterFreq[ letters[i] ])
+			letterFreq[ letters[i] ]++;
+		else
+			letterFreq[ letters[i] ] = 1;
+	}
+
+	return letterFreq;
+}
+
+function decrementOrDelete(node, collection) {
+	collection.total--;
+	
+	if (collection[node] > 1)
+		collection[node]--;
+	else
+		delete collection[node];
+}
+
+function isTrailAccurate(trail, cur) {
+	var letters = trail.split(''),
+		i = 0,
+		l = trail.length,
+		d = null;
+		
+	for (; i < l; i++) {
+		d = (d) ? d[letters[i]] : dict[letters[i]];
+	}
+	
+	console.log((d === cur) ? 'Trail is accurate' : 'Trail is INACCURATE');
+}
+
+exports.findTrieAnagrams = function findTrieAnagrams( word ) {
+	
+	var matches = [],
+		uniqueLetters = findUniqueLetters(word),
+		ul = uniqueLetters.length,
+		i = 0,
+		letterFreq = findLetterFreqs(word),
+		debug = false,
+		debugTrail = true,
+		recurse = true,
+		extend = require("node.extend");
+		
+	if (debug) console.log('|--------------------------|');
+	if (debug) console.log('|- Anagram GOOOOOOOOOOOOO -|');
+	if (debug) console.log('|--------------------------|');
+	if (debug) console.log('DUMP: Word: ' + word);
+	if (debug) console.log({'DUMP: Uniq': uniqueLetters});
+	if (debug) console.log({'DUMP: Freq': letterFreq});
+		
+	// Our recursion point
+	function searchTrie(freq, cur, trail)
+	{
+		// cur is the pretty trie or trie subset
+		// only iterate items in letterFreq who's count > 0?
+		// for ( var node in cur ) {
+		for ( var node in freq) {
+				
+			// deep copy freq otherwise it will inaccurately bleed into recursions for non-matches
+			var localFreq = extend(true, {}, freq);
+			
+			if (debugTrail && node !== 'total') console.log('TRAIL: ' + trail + ':' + node);
+				
+			if ( localFreq.total > 0 && node !== 'total' && cur[node] !== undefined ) {
+				
+				if (debugTrail) console.log('TRAIL: ' + trail + '>' + node);
+				// copy trail otherwise it will innacurately bleed into recursions for non-matches
+				var localTrail = trail + node;
+				if (debug) console.log('INFO: Entering "' + node  + '" lief ('+ localTrail +')');
+		
+				decrementOrDelete(node, localFreq);
+				if (debug) console.log({'DUMP: Freq': localFreq});
+				
+				var val = cur[ node ];
+				if (debugTrail) isTrailAccurate(localTrail, val);
+		
+				// valid anagram?
+				if (val === 0 || val.$ === 0) {
+					if (val === 0) { 
+						if (debug || debugTrail) console.log('MTCH: Val equals 0 (' + localTrail + ')'); 
+						matches.push(localTrail);
+					}
+					if (val.$ === 0) { 
+						if (debug || debugTrail) console.log('MTCH: Val equals $ (' + localTrail +')');
+						matches.push(localTrail);
+					}
+				}
+		
+				if (debugTrail && localFreq.total > 0 && recurse) console.log({'RECRS': {'lFreq': localFreq, 'trail': localTrail}});
+				if ( localFreq.total > 0 && recurse ) searchTrie( localFreq, val, localTrail );
+		
+			}
+		}
+	}
+	
+	// start an iteration for each unique letter
+	for (; i < ul; i++)
+	{
+		var letter = uniqueLetters[i],
+			freq = extend(true, {}, letterFreq),
+			stem = (dict[ letter ]) ? dict[ letter ] : null;
+			
+		freq.total = word.length;
+		
+		if (debug) console.log('|--------------------------|');
+		if (debug) console.log('STRT: ' + l);
+		
+		// immediately enter a stem and search trie
+		if (stem != null) {
+			decrementOrDelete(letter, freq);
+			searchTrie( freq, stem, letter);
+		}
+	}
+	
+	console.log({'END': matches});
+	console.log('END: ' + matches.length + ' matches.');
+	
+	return false;
+};
+
 exports.findBinaryWord = function( word ) {
 	var l = word.length;
 	
