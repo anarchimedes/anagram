@@ -126,27 +126,36 @@ exports.findTrieAnagrams = function findTrieAnagrams( word ) {
 	if (debug) console.log({'DUMP: Uniq': uniqueLetters});
 	if (debug) console.log({'DUMP: Freq': letterFreq});
 		
-	// Our recursion point
+	// the recursion point
 	function searchTrie(freq, cur, trail)
 	{
-		// cur is the pretty trie or trie subset
-		// only iterate items in letterFreq who's count > 0?
-		// for ( var node in cur ) {
-		for ( var node in freq) {
-				
-			// deep copy freq otherwise it will inaccurately bleed into recursions for non-matches
-			var localFreq = extend(true, {}, freq);
+		for ( var node in cur ) {
+		// only iterating the items in freq is more efficient but hinders flexibility to deal with wildcards
+		// for ( var node in freq) {
 			
-			if (debugTrail && node !== 'total') console.log('TRAIL: ' + trail + ':' + node);
+			var isWildcard = (freq[node] === undefined && freq['?'] !== undefined);
+			if (debugTrail) console.log('TRAIL: ' + trail + '/' + node);
+			// non-wildcard version of the parent loop
+			// if (debugTrail && node !== 'total') console.log('TRAIL: ' + trail + ':' + node);
 				
-			if ( localFreq.total > 0 && node !== 'total' && cur[node] !== undefined ) {
+			if ( freq.total > 0 && ( freq[node] !== undefined || ( isWildcard && node !== '$' ) ) ) {
+			// non-wildcard version of the parent loop
+			// if ( freq.total > 0 && node !== 'total' && cur[node] !== undefined ) {
 				
-				if (debugTrail) console.log('TRAIL: ' + trail + '>' + node);
 				// copy trail otherwise it will innacurately bleed into recursions for non-matches
-				var localTrail = trail + node;
+				// deep copy freq otherwise it will innacurately bleed into recursions for non-matches
+				var localTrail = trail + node,
+					localFreq = extend(true, {}, freq);
+					
+				if (debugTrail) console.log('TRAIL: ' + trail + '>' + node + ( isWildcard ? ' (?)' : '' ) );
+					
 				if (debug) console.log('INFO: Entering "' + node  + '" lief ('+ localTrail +')');
 		
-				decrementOrDelete(node, localFreq);
+				if (isWildcard)
+					decrementOrDelete('?', localFreq);
+				else
+					decrementOrDelete(node, localFreq);
+					
 				if (debug) console.log({'DUMP: Freq': localFreq});
 				
 				var val = cur[ node ];
@@ -172,23 +181,36 @@ exports.findTrieAnagrams = function findTrieAnagrams( word ) {
 	}
 	
 	// start an iteration for each unique letter
-	for (; i < ul; i++)
-	{
-		var letter = uniqueLetters[i],
-			freq = extend(true, {}, letterFreq),
-			stem = (dict[ letter ]) ? dict[ letter ] : null;
-			
-		freq.total = word.length;
-		
-		if (debug) console.log('|--------------------------|');
-		if (debug) console.log('STRT: ' + l);
-		
-		// immediately enter a stem and search trie
-		if (stem != null) {
-			decrementOrDelete(letter, freq);
-			searchTrie( freq, stem, letter);
-		}
-	}
+	// non-wildcard version
+	// for (; i < ul; i++)
+	// 	{
+	// 		var letter = uniqueLetters[i],
+	// 			freq = extend(true, {}, letterFreq),
+	// 			stem = (dict[ letter ]) ? dict[ letter ] : null;
+	// 			
+	// 		freq.total = word.length;
+	// 		
+	// 		if (debug) console.log('|--------------------------|');
+	// 		if (debug) console.log('STRT: ' + l);
+	// 		
+	// 		// immediately enter a stem and search trie
+	// 		if (stem != null) {
+	// 			decrementOrDelete(letter, freq);
+	// 			searchTrie( freq, stem, letter);
+	// 		}
+	// 	}
+	
+	// for (var node in dict) {
+	// var freq = extend(true, {}, letterFreq);
+	// freq.total = word.length;
+	letterFreq.total = word.length;
+	
+	if (debug) console.log('|--------------------------|');
+	if (debug) console.log('STRT: ' + l);
+	
+	// should I be decrementOrDelete'ing here?
+	searchTrie( letterFreq, dict, '');
+	//}
 	
 	console.log({'END': matches});
 	console.log('END: ' + matches.length + ' matches.');
