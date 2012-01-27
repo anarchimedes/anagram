@@ -115,7 +115,7 @@ exports.findTrieAnagrams = function findTrieAnagrams( word ) {
 		i = 0,
 		letterFreq = findLetterFreqs(word),
 		debug = false,
-		debugTrail = true,
+		debugTrail = false,
 		recurse = true,
 		extend = require("node.extend");
 		
@@ -163,14 +163,7 @@ exports.findTrieAnagrams = function findTrieAnagrams( word ) {
 		
 				// valid anagram?
 				if (val === 0 || val.$ === 0) {
-					if (val === 0) { 
-						if (debug || debugTrail) console.log('MTCH: Val equals 0 (' + localTrail + ')'); 
-						matches.push(localTrail);
-					}
-					if (val.$ === 0) { 
-						if (debug || debugTrail) console.log('MTCH: Val equals $ (' + localTrail +')');
-						matches.push(localTrail);
-					}
+					matches.push(localTrail);
 				}
 		
 				if (debugTrail && localFreq.total > 0 && recurse) console.log({'RECRS': {'lFreq': localFreq, 'trail': localTrail}});
@@ -200,20 +193,17 @@ exports.findTrieAnagrams = function findTrieAnagrams( word ) {
 	// 		}
 	// 	}
 	
-	// for (var node in dict) {
-	// var freq = extend(true, {}, letterFreq);
-	// freq.total = word.length;
 	letterFreq.total = word.length;
 	
 	if (debug) console.log('|--------------------------|');
 	if (debug) console.log('STRT: ' + l);
 	
-	// should I be decrementOrDelete'ing here?
 	searchTrie( letterFreq, dict, '');
-	//}
 	
-	console.log({'END': matches});
-	console.log('END: ' + matches.length + ' matches.');
+	if (debug) 
+		console.log({'END': matches});
+	if (debug) 
+		console.log('END: ' + matches.length + ' matches.');
 	
 	return false;
 };
