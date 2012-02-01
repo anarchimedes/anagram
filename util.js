@@ -202,7 +202,7 @@ exports.findTrieAnagrams = function findTrieAnagrams( word ) {
 	
 	if (debug) 
 		console.log({'END': matches});
-	if (debug) 
+	//if (debug) 
 		console.log('END: ' + matches.length + ' matches.');
 	
 	return false;
