@@ -1,0 +1,4 @@
+.git*
+dict/
+examples/
+test/
