@@ -3,7 +3,7 @@ var anagram = require('../lib/anagram');
 	assert = require('assert');
 
 // build test
-//anagram.createDictionary('../dict/twl06.txt');
+anagram.createDictionary('../dict/twl06.txt');
 
 // lookup tests
 anagram.init(function() {
