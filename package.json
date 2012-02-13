@@ -20,5 +20,9 @@
 	},
   "license": "MIT",
 	"main": "index",
+  "bin": { "anagram": "./bin/anagram" },
+  "scripts": {
+    "test": "vows test/*"
+  },
   "engines": { "node": "0.6.x" }
 }

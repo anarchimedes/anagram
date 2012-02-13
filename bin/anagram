@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var anagram = require('../')
+  , fs = require('fs')
+	, word = process.argv[2];
+	
+anagram.init(function(err){
+
+	if (err) throw err;
+
+	anagram.findAnagrams(word, function(err, anagrams) {
+		if (err) throw err;
+		console.log('Found %d anagrams.', anagrams.count);
+		console.log(anagrams);
+	});
+
+});

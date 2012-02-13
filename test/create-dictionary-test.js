@@ -8,7 +8,7 @@ vows.describe('Create a custom dictionary').addBatch({
     
     'create dictionary': {    // context
         topic: function() {
-            return anagram.createDictionary('./dict/2letters.txt');
+            return anagram.createDictionary('./dict/2letters.txt', true);
         },
         
         'length of pre-built dictionary matches generated one': function(err) {
