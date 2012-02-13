@@ -5,24 +5,30 @@
   "description": "a simple anagram generator",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryan-nauman/nodeagram.git"
+    "url": "git://github.com/ryan-nauman/nodeagram.git"
   },
   "keywords": [
     "anagram",
     "scrabble",
-		"nodeagram"
+    "nodeagram"
   ],
-  "dependencies" : {
-    "node.extend" :  "0.0.1"
+  "dependencies": {
+    "node.extend": "0.0.1"
   },
   "devDependencies": {
     "vows": "*"
-	},
+  },
   "license": "MIT",
-	"main": "index",
-  "bin": { "anagram": "./bin/anagram" },
+  "main": "index",
+  "bin": {
+    "anagram": "./bin/anagram"
+  },
   "scripts": {
     "test": "vows test/*"
   },
-  "engines": { "node": "0.6.x" }
+  "engines": {
+    "node": "0.6.x"
+  },
+  "optionalDependencies": {},
+  "homepage": "https://github.com/ryan-nauman/nodeagram"
 }
