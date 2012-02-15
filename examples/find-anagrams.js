@@ -1,7 +1,8 @@
 var anagram = require ('../lib/anagram');
 
 // initialize the dictionary and find anagrams
-anagram.init(function() {
+anagram.init('../dict/twl06.js', function(err) {
+    if (err) console.log(err);
     anagram.findAnagrams('dog', function(err, anagrams) {
     	console.log('`%s`: found %d anagrams', 'dog', anagrams.count);
     	console.log(anagrams);

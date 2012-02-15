@@ -4,11 +4,19 @@ var anagram = require('../lib/anagram');
 
 // initialization is expensive
 // choosing speed over tests split across many files except where necessary
-vows.describe('Find anagrams using default dictionary').addBatch({
+vows.describe('Find anagrams using twl06 dictionary').addBatch({
+    
+    'initializing fake dictionary': {
+        
+        'error initializing': function(err) {
+            assert.throws(anagram.init('/zu.rp', function(){}), Error);
+        }
+        
+    },
     
     'initializing dictionary': {    // context
         topic: function() {
-            anagram.init(this.callback);
+            anagram.init('./dict/twl06.js', this.callback);
         },
         
         'successfully initialized': function(err) {
