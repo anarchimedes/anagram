@@ -98,7 +98,26 @@ vows.describe('Find anagrams using default dictionary').addBatch({
              are 101 total anagrams': function (err, anagrams) {
                  assert.equal(anagrams.count, 101);
              }
-        }
+        },
+
+         'find anagrams safely without wildcards (`dog`)': {            
+             topic: function() {
+                 anagram.findAnagramsSafely('dog', this.callback);
+             },
+
+             'we get these anagrams': function (err, anagrams) {
+                 assert.equal(JSON.stringify(anagrams),
+                     JSON.stringify({
+                         '2': [ 'do', 'go', 'od' ],
+                         '3': [ 'dog', 'god' ],
+                         count: 5 
+                     })
+                 );
+             }
+         }
+         
+         // add tests for custom formats
+         
         // end sub-context
     }
     
