@@ -34,7 +34,8 @@ vows.describe('Find anagrams using twl06 dictionary').addBatch({
                     JSON.stringify({
                         '2': [ 'do', 'go', 'od' ],
                         '3': [ 'dog', 'god' ],
-                        count: 5 
+                        count: 5,
+                        input: 'dog'
                     })
                 );
             }
@@ -95,18 +96,30 @@ vows.describe('Find anagrams using twl06 dictionary').addBatch({
                 assert.equal(anagrams.count, 1116);
             }
         },
-        
+
         'find anagrams _safely_ with custom max wildcard setting': {
             topic: function() {
                 anagram.findAnagramsSafely('??????????', { maxWildcards: 2 },
                     this.callback);
             },
-            
+
             'we know max wildcards was cut to 2 because there \
              are 101 total anagrams': function (err, anagrams) {
                  assert.equal(anagrams.count, 101);
              }
         },
+
+         'find anagrams _safely_ with max wildcard setting set to 1': {
+             topic: function() {
+                 anagram.findAnagramsSafely('t???', { maxWildcards: 1 },
+                     this.callback);
+             },
+
+             'we know max wildcards was cut to 1 because there \
+              are 7 total anagrams': function (err, anagrams) {
+                  assert.equal(anagrams.count, 7);
+              }
+         },
 
          'find anagrams safely without wildcards (`dog`)': {            
              topic: function() {
@@ -118,7 +131,8 @@ vows.describe('Find anagrams using twl06 dictionary').addBatch({
                      JSON.stringify({
                          '2': [ 'do', 'go', 'od' ],
                          '3': [ 'dog', 'god' ],
-                         count: 5 
+                         count: 5,
+                         input: 'dog'
                      })
                  );
              }
