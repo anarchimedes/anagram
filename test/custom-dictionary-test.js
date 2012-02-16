@@ -25,7 +25,8 @@ vows.describe('Find anagrams using custom dictionary').addBatch({
                 assert.equal(JSON.stringify(anagrams),
                     JSON.stringify({
                         '2': [ 'do', 'go', 'od' ],
-                        count: 3
+                        count: 3,
+                        input: 'dog'
                     })
                 );
             }
