@@ -22,7 +22,8 @@
   "license": "MIT",
   "main": "index",
   "bin": {
-    "anagram": "./bin/anagram"
+    "anagram": "./bin/anagram",
+		"anagram-build": "./bin/anagram-build"
   },
   "scripts": {
     "test": "vows --spec test/*"
