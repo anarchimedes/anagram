@@ -5,7 +5,7 @@
   "description": "a simple anagram generator",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ryan-nauman/nodeagram.git"
+    "url": "git://github.com/ryan-nauman/anagram.git"
   },
   "keywords": [
     "anagram",
@@ -32,5 +32,5 @@
     "node": "0.6.x"
   },
   "optionalDependencies": {},
-  "homepage": "https://github.com/ryan-nauman/nodeagram"
+  "homepage": "https://github.com/ryan-nauman/anagram"
 }
