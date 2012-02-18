@@ -1,7 +1,7 @@
 
 # anagram
 
-  A simple anagram generation library for use with nodejs. Forked from jeresig/trie-js by John Resig.
+  A simple anagram generation library for use with nodejs. Forked from [jeresig/trie-js](https://github.com/jeresig/trie-js) by John Resig.
 
 ## Installation
 
@@ -23,7 +23,7 @@ anagram.init('../dict/twl06.js', function(err) {
 
 ## Executables
 
-	anagram comes packed with two executables: `anagram` and `anagram-build`
+  anagram comes packed with two executables: `anagram` and `anagram-build`
 
 ```shell
 $ anagram-build -f dict/twl06.txt > dict/twl06.js
