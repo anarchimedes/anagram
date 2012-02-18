@@ -28,7 +28,7 @@ anagram.init(argv.d, function(err) {
 		options = { maxWildcards: argv.mw };
 	}
 	
-	anagram.findAnagramsSafely(argv.w, options, function(err, anagrams) {
+	anagram.findAnagrams(argv.w, options, function(err, anagrams) {
 		if (err) throw err;
 		console.log('Found %d anagrams for `%s`.', anagrams.count, anagrams.input);
 		console.log(anagrams);

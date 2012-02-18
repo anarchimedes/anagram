@@ -88,7 +88,7 @@ vows.describe('Find anagrams using twl06 dictionary').addBatch({
         
         'find anagrams _safely_ for `??????????`': {
             topic: function() {
-                anagram.findAnagramsSafely('??????????', this.callback);
+                anagram.findAnagrams('??????????', this.callback);
             },
             
             'we know max wildcards was cut to 3 because there \
@@ -99,7 +99,7 @@ vows.describe('Find anagrams using twl06 dictionary').addBatch({
 
         'find anagrams _safely_ with custom max wildcard setting': {
             topic: function() {
-                anagram.findAnagramsSafely('??????????', { maxWildcards: 2 },
+                anagram.findAnagrams('??????????', { maxWildcards: 2 },
                     this.callback);
             },
 
@@ -111,7 +111,7 @@ vows.describe('Find anagrams using twl06 dictionary').addBatch({
 
          'find anagrams _safely_ with max wildcard setting set to 1': {
              topic: function() {
-                 anagram.findAnagramsSafely('t???', { maxWildcards: 1 },
+                 anagram.findAnagrams('t???', { maxWildcards: 1 },
                      this.callback);
              },
 
@@ -123,7 +123,7 @@ vows.describe('Find anagrams using twl06 dictionary').addBatch({
 
          'find anagrams safely without wildcards (`dog`)': {            
              topic: function() {
-                 anagram.findAnagramsSafely('dog', this.callback);
+                 anagram.findAnagrams('dog', this.callback);
              },
 
              'we get these anagrams': function (err, anagrams) {
