@@ -29,15 +29,9 @@ vows.describe('Find anagrams using twl06 dictionary').addBatch({
                 anagram.findAnagrams('dog', this.callback);
             },
             
-            'we get these anagrams': function (err, anagrams) {
-                assert.equal(JSON.stringify(anagrams),
-                    JSON.stringify({
-                        '2': [ 'do', 'go', 'od' ],
-                        '3': [ 'dog', 'god' ],
-                        count: 5,
-                        input: 'dog'
-                    })
-                );
+            'we get 5 total anagrams': function (err, anagrams) {
+                assert.equal(anagrams.count, 5);
+                assert.equal(anagrams.words.length, 5);
             }
         },
         
