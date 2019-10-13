@@ -1,11 +1,11 @@
 {
   "name": "anagram",
-  "version": "0.3.0",
-  "author": "Ryan Nauman <ryanjnauman@gmail.com>",
-  "description": "a simple anagram generator",
+  "version": "0.4.1",
+  "author": "Anarchimedes Apostolakis <anarchimedesapostolakis@gmail.com>",
+  "description": "a simple anagram generator, forked from ryan-nauman/anagram (forked from jeresig/trie-js)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ryan-nauman/anagram.git"
+    "url": "git://github.com/anarchimedes/anagram.git"
   },
   "keywords": [
     "anagram",
@@ -13,8 +13,8 @@
     "nodeagram"
   ],
   "dependencies": {
-    "node.extend": "0.0.1",
-		"optimist": "0.3.1"
+    "node.extend": "^2.0.2",
+    "optimist": "0.3.1"
   },
   "devDependencies": {
     "vows": "*"
@@ -23,7 +23,7 @@
   "main": "index",
   "bin": {
     "anagram": "./bin/anagram",
-		"anagram-build": "./bin/anagram-build"
+    "anagram-build": "./bin/anagram-build"
   },
   "scripts": {
     "test": "vows --spec test/*"
@@ -32,5 +32,5 @@
     "node": "0.6.x"
   },
   "optionalDependencies": {},
-  "homepage": "https://github.com/ryan-nauman/anagram"
+  "homepage": "https://github.com/anarchimedes/anagram"
 }
